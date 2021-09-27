@@ -15,8 +15,8 @@ public class App {
 
         this.choosePlayer1 = PlayerTurn("X");
         this.choosePlayer2 = PlayerTurn("O");
-        System.out.println(choosePlayer1);
-        System.out.println(choosePlayer2);
+        // System.out.println(choosePlayer1);
+        // System.out.println(choosePlayer2);
     }
 
     static String PlayerTurn(String player){
