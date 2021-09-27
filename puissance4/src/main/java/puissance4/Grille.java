@@ -28,6 +28,14 @@ public class Grille {
                 if (columns.get(j).size() <= i){
                     System.out.print(" ");
                 }
+                else if (columns.get(j).size() == i){
+                    if (columns.get(j).get(i) == Cell.player1){
+                        System.out.println("X");
+                    }
+                    else if (columns.get(j).get(i) == Cell.player2){
+                        System.out.println("O");
+                    }
+                }
             }
             System.out.print("#");
             System.out.print('\n');
