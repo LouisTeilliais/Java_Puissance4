@@ -28,12 +28,12 @@ public class Grille {
                 if (columns.get(j).size() <= i){
                     System.out.print(" ");
                 }
-                else if (columns.get(j).size() == i){
+                else{
                     if (columns.get(j).get(i) == Cell.player1){
-                        System.out.println("X");
+                        System.out.print("X");
                     }
                     else if (columns.get(j).get(i) == Cell.player2){
-                        System.out.println("O");
+                        System.out.print("O");
                     }
                 }
             }
@@ -43,6 +43,20 @@ public class Grille {
         System.out.println(" ########");
         System.out.println(" abcdefgh ");
 
+    }
+
+
+    public void AddPlayerList(Boolean player, String ltr){
+        if (player){
+            if (ltr.equals("a")){
+                columns.get(0).add(Cell.player1);
+            }
+        }
+        else{
+            if (ltr.equals("a")){
+                columns.get(0).add(Cell.player2);
+            }
+        }
     }
 
 

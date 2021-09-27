@@ -2,26 +2,36 @@ package puissance4;
 
 import java.io.*;
 
-public class App 
-{
+public class App {
     public static void main( String[] args ){
-        Grille newGrid = new Grille();
-        PlayerTurn("X");
-        PlayerTurn("O");
+        App newApp = new App();
     }
 
-    static void menu(){
+    Grille grid = new Grille();
 
 
+    public Boolean player = true;
+    public String choosePlayer1 = "";
+    public String choosePlayer2= "";
 
+    App(){
+
+        this.choosePlayer1 = PlayerTurn("X");
+        player = true;
+        ListRefresh();
+        grid.PrintGrid();
+        this.choosePlayer2 = PlayerTurn("O");
+        player = false;
+        ListRefresh();
+        grid.PrintGrid();
     }
 
     static String PlayerTurn(String player){
 
         try {
             String choose = getStringFromConsole("Player " + player +  ", What column do you choose ?");
-            if ( choose.charAt(0) >= 'a' && choose.charAt(0) <= 'g'){
-                System.out.println(choose);
+            if ( choose.charAt(0) >= 'a' && choose.charAt(0) <= 'f'){
+                // System.out.println(choose);
                 
             }else {
                 throw new IOException("Bad colummn");
@@ -35,6 +45,11 @@ public class App
         }
         
     }
+
+    public void ListRefresh(){
+        grid.AddPlayerList(player, choosePlayer1);
+    }
+
 
     static String getStringFromConsole(String message) throws IOException{
 
