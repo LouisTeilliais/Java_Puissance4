@@ -2,22 +2,21 @@ package puissance4;
 
 import java.io.*;
 
-public class App 
-{
+public class App {
     public static void main( String[] args ){
     
-        // do {
-        //     PlayerTurn("X");
-
-        //     PlayerTurn("O");
-        // }
-        // while(); 
+        App newApp = new App();
     }
 
-    static void menu(){
+    public String choosePlayer1 = "";
+    public String choosePlayer2= "";
 
+    App(){
 
-
+        this.choosePlayer1 = PlayerTurn("X");
+        this.choosePlayer2 = PlayerTurn("O");
+        System.out.println(choosePlayer1);
+        System.out.println(choosePlayer2);
     }
 
     static String PlayerTurn(String player){
@@ -25,7 +24,7 @@ public class App
         try {
             String choose = getStringFromConsole("Player " + player +  ", What column do you choose ?");
             if ( choose.charAt(0) >= 'a' && choose.charAt(0) <= 'f'){
-                System.out.println(choose);
+                // System.out.println(choose);
                 
             }else {
                 throw new IOException("Bad colummn");
@@ -39,6 +38,8 @@ public class App
         }
         
     }
+
+
 
     static String getStringFromConsole(String message) throws IOException{
 
