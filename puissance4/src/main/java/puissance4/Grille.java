@@ -1,6 +1,6 @@
 package puissance4;
 
-import java.io.*;
+
 import java.util.*;
 
 
@@ -16,10 +16,6 @@ public class Grille {
         CreateList();
         PrintGrid();
     }
-    
-
-    // String line8 = "########";
-    // String line9 = " abcdef ";
 
     public void PrintGrid(){
         for (int i=5; i>=0; i--){
@@ -57,8 +53,6 @@ public class Grille {
         }
     }
 
-
-
     public void CreateList(){
 
         columns = new ArrayList<>();
@@ -68,4 +62,48 @@ public class Grille {
         }
     }
 
+
+
+    Boolean verifWin(){
+
+        for (int i = 0; i <= 5; i++){
+            
+            for (int j = 0; j <= 7; j++){
+                // verif Player X
+                if (columns.get(j).get(i) == Cell.player1 && columns.get(j+1).get(i) == Cell.player1 && columns.get(j+2).get(i) == Cell.player1 && columns.get(j+3).get(i) == Cell.player1){ // Verif a droite 
+                    System.out.println("Player X Win ! ");
+                
+                }else if (columns.get(j).get(i) == Cell.player1 && columns.get(j-1).get(i) == Cell.player1 && columns.get(j-2).get(i) == Cell.player1 && columns.get(j-3).get(i) == Cell.player1){ // gauche
+                    System.out.println("Player X Win ! ");
+                
+                }else if (columns.get(j).get(i) == Cell.player1 && columns.get(j).get(i+1) == Cell.player1 && columns.get(j).get(i+2) == Cell.player1 && columns.get(j).get(i+3) == Cell.player1){ // en haut
+                    System.out.println("Player X Win ! ");
+               
+                }else if (columns.get(j).get(i) == Cell.player1 && columns.get(j+1).get(i+1) == Cell.player1 && columns.get(j+2).get(i+2) == Cell.player1 && columns.get(j+3).get(i+3) == Cell.player1){ // diagonale droite
+                    System.out.println("Player X Win ! ");
+                
+                }else if (columns.get(j).get(i) == Cell.player1 && columns.get(j-1).get(i+1) == Cell.player1 && columns.get(j-2).get(i+2) == Cell.player1 && columns.get(j-3).get(i+3) == Cell.player1){ // diagonale gauche
+                    System.out.println("Player X Win ! ");
+                }
+                // verif Player O 
+                else if (columns.get(j).get(i) == Cell.player2 && columns.get(j+1).get(i) == Cell.player2 && columns.get(j+2).get(i) == Cell.player2 && columns.get(j+3).get(i) == Cell.player2){ // Verif a droite 
+                    System.out.println("Player O Win ! ");
+                
+                }else if (columns.get(j).get(i) == Cell.player2 && columns.get(j-1).get(i) == Cell.player2 && columns.get(j-2).get(i) == Cell.player2 && columns.get(j-3).get(i) == Cell.player2){ // gauche
+                    System.out.println("Player O Win ! ");
+                
+                }else if (columns.get(j).get(i) == Cell.player2 && columns.get(j).get(i+1) == Cell.player2 && columns.get(j).get(i+2) == Cell.player2 && columns.get(j).get(i+3) == Cell.player2){ // en haut
+                    System.out.println("Player O Win ! ");
+               
+                }else if (columns.get(j).get(i) == Cell.player2 && columns.get(j+1).get(i+1) == Cell.player2 && columns.get(j+2).get(i+2) == Cell.player2 && columns.get(j+3).get(i+3) == Cell.player2){ // diagonale droite
+                    System.out.println("Player O Win ! ");
+                
+                }else if (columns.get(j).get(i) == Cell.player2 && columns.get(j-1).get(i+1) == Cell.player2 && columns.get(j-2).get(i+2) == Cell.player2 && columns.get(j-3).get(i+3) == Cell.player2){ // diagonale gauche
+                    System.out.println("Player O Win ! ");
+                }
+            }
+            return true;
+        }
+        return false;
+    }
 }
