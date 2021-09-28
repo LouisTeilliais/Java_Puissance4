@@ -4,22 +4,32 @@ import java.io.*;
 
 public class App {
     public static void main( String[] args ){
-    
         App newApp = new App();
     }
 
+    Grille grid = new Grille();
+
+
+    public Boolean player = true;
     public String choosePlayer1 = "";
     public String choosePlayer2= "";
 
     App(){
 
-        this.choosePlayer1 = PlayerTurn("X");
-        this.choosePlayer2 = PlayerTurn("O");
-        // System.out.println(choosePlayer1);
-        // System.out.println(choosePlayer2);
+        do {
+           this.choosePlayer1 = chooseColumn("X");
+            player = true;
+            ListRefresh();
+            grid.PrintGrid();
+            this.choosePlayer2 = chooseColumn("O");
+            player = false;
+            ListRefresh();
+            grid.PrintGrid(); 
+        }while(grid.verifWin());
+        
     }
 
-    static String PlayerTurn(String player){
+    static String chooseColumn(String player){
 
         try {
             String choose = getStringFromConsole("Player " + player +  ", What column do you choose ?");
@@ -34,9 +44,13 @@ public class App {
         }
         catch(Exception e){
             System.err.println("Please, input a valid column");
-            return PlayerTurn(player);
+            return chooseColumn(player);
         }
         
+    }
+
+    public void ListRefresh(){
+        grid.AddPlayerList(player, choosePlayer1);
     }
 
 
