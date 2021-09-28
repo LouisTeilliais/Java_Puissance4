@@ -45,17 +45,15 @@ public class Grille {
 
     }
 
+    int colonne;
 
     public void AddPlayerList(Boolean player, String ltr){
+        colonne = Character.getNumericValue(ltr.charAt(0)) - 10;
         if (player){
-            if (ltr.equals("a")){
-                columns.get(0).add(Cell.player1);
-            }
+            columns.get(colonne).add(Cell.player1);
         }
-        else{
-            if (ltr.equals("a")){
-                columns.get(0).add(Cell.player2);
-            }
+        else {
+            columns.get(colonne).add(Cell.player2);
         }
     }
 
