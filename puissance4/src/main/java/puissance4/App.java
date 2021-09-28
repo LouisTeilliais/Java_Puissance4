@@ -15,22 +15,20 @@ public class App {
     public String choosePlayer2= "";
 
     App(){
-
         do {
-           this.choosePlayer1 = chooseColumn("X");
+            this.choosePlayer1 = chooseColumn("X");
             player = true;
-            ListRefresh();
+            grid.AddPlayerList(player, choosePlayer1);
             grid.PrintGrid();
             this.choosePlayer2 = chooseColumn("O");
             player = false;
-            ListRefresh();
-            grid.PrintGrid(); 
+            grid.AddPlayerList(player, choosePlayer2);
+            grid.PrintGrid();
         }while(grid.verifWin());
         
     }
 
     static String chooseColumn(String player){
-
         try {
             String choose = getStringFromConsole("Player " + player +  ", What column do you choose ?");
             if ( choose.charAt(0) >= 'a' && choose.charAt(0) <= 'f'){
@@ -41,20 +39,14 @@ public class App {
             } 
             return choose;
             
-        }
-        catch(Exception e){
+        }catch(Exception e){
             System.err.println("Please, input a valid column");
             return chooseColumn(player);
         }
         
     }
 
-    public void ListRefresh(){
-        grid.AddPlayerList(player, choosePlayer1);
-    }
-
-
-
+    
     static String getStringFromConsole(String message) throws IOException{
 
         System.out.println(message);
