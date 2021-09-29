@@ -34,7 +34,7 @@ public class App {
     static String chooseColumn(String player){
         try {
             String choose = getStringFromConsole("Player " + player +  ", What column do you choose ?");
-            if ( choose.charAt(0) >= 'a' && choose.charAt(0) <= 'f'){
+            if ( choose.charAt(0) >= 'a' && choose.charAt(0) <= 'h'){
                 // System.out.println(choose);
                 
             }else {
