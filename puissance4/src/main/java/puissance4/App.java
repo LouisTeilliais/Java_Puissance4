@@ -13,6 +13,7 @@ public class App {
     public Boolean player = true;
     public String choosePlayer1 = "";
     public String choosePlayer2= "";
+ 
 
     App(){
         do {
@@ -24,7 +25,7 @@ public class App {
             player = false;
             grid.AddPlayerList(player, choosePlayer2);
             grid.PrintGrid();
-        }while(grid.verifWin());
+        }while(!grid.WinOrLoose);
         
     }
 
