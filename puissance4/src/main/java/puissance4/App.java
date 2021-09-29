@@ -17,17 +17,24 @@ public class App {
     App(){
         int randomTurn = (int) (Math.random() * 2 + 1);
         // System.out.println(randomTurn);
-        do {
-            switch(randomTurn){
-                case 1:
-                PlayerTurn();
-                case 2:
-                
-            }
-            
+        // do {
+        //     switch(randomTurn){
+        //         case 1:
+        //         PlayerTurn(); // Joueur 1 commence
+        //         case 2:
+        //         // Joueur 2 commence 
+        //     }
 
+        // }while(grid.verifWin());
+        this.choosePlayer1 = chooseColumn("X");
+        player = true;
+        grid.AddPlayerList(player, choosePlayer1);
+        grid.PrintGrid();
 
-        }while(grid.verifWin());
+        this.choosePlayer2 = chooseColumn("O");
+        player = false;
+        grid.AddPlayerList(player, choosePlayer2);
+        grid.PrintGrid();
         
     }
 
