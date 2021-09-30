@@ -13,6 +13,7 @@ public class App {
     public Boolean player = true;
     public String choosePlayer1 = "";
     public String choosePlayer2= "";
+ 
 
     App(){
         int randomTurn = (int) (Math.random() * 2 + 1);
@@ -30,12 +31,12 @@ public class App {
         player = true;
         grid.AddPlayerList(player, choosePlayer1);
         grid.PrintGrid();
-
+        
         this.choosePlayer2 = chooseColumn("O");
         player = false;
         grid.AddPlayerList(player, choosePlayer2);
         grid.PrintGrid();
-        
+       
     }
 
     static String chooseColumn(String player){
@@ -72,9 +73,9 @@ public class App {
         return input; 
     }
 
-    void PlayerTurn(){
+    void PlayerTurn(String whoPlay){
         
-        this.choosePlayer1 = chooseColumn("X");
+        this.choosePlayer1 = chooseColumn(whoPlay);
         player = true;
         grid.AddPlayerList(player, choosePlayer1);
         grid.PrintGrid();
