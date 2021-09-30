@@ -66,54 +66,47 @@ public class Grille {
 
 
 
-    Boolean verifWin(){
-
-        for (int i = 0; i <= 5; i++){
-            
-            for (int j = 0; j <= 7; j++){
-
-                if (j <= 4){
-                    if (columns.get(j).get(i) == Cell.player1 && columns.get(j+1).get(i) == Cell.player1 && columns.get(j+2).get(i) == Cell.player1 && columns.get(j+3).get(i) == Cell.player1){ // Verif a droite 
-                        System.out.println("Player X Win ! "); // Win sur l'horizontal du joueur 1
-                        WinOrLoose = true;
-                    }
-                    else if (columns.get(j).get(i) == Cell.player2 && columns.get(j+1).get(i) == Cell.player2 && columns.get(j+2).get(i) == Cell.player2 && columns.get(j+3).get(i) == Cell.player2){ // Verif a droite 
-                        System.out.println("Player O Win ! ");
-                        WinOrLoose = true;
+    Boolean verifWinVertical(Boolean player, String ltr){
+        colonne = Character.getNumericValue(ltr.charAt(0)) - 10;
+        int alignpieces = 0;
+        if (player){
+            try{
+                for (int i = 2; i < 5; i++){
+                    if(columns.get(colonne).get((columns.get(colonne).size())-i) == columns.get(colonne).get((columns.get(colonne).size())-1)){
+                        alignpieces++;
+                    } else {
+                        break;
                     }
                 }
-                if (i <= 2){
-                    if (columns.get(j).get(i) == Cell.player1 && columns.get(j).get(i+1) == Cell.player1 && columns.get(j).get(i+2) == Cell.player1 && columns.get(j).get(i+3) == Cell.player1){ // en haut
-                        System.out.println("Player X Win ! "); // Win sur la vertical du joueur 1
-                        WinOrLoose = true;
-                    }
-                    else if (columns.get(j).get(i) == Cell.player2 && columns.get(j).get(i+1) == Cell.player2 && columns.get(j).get(i+2) == Cell.player2 && columns.get(j).get(i+3) == Cell.player2){ // en haut
-                        System.out.println("Player O Win ! ");               
-                        WinOrLoose = true;
-                    }
-                }
-                if (j<=4 && i <= 2){
-                    if (columns.get(j).get(i) == Cell.player1 && columns.get(j+1).get(i+1) == Cell.player1 && columns.get(j+2).get(i+2) == Cell.player1 && columns.get(j+3).get(i+3) == Cell.player1){ // diagonale droite
-                        System.out.println("Player X Win ! "); // Win sur la diagonale droite par le joueur 1
-                        WinOrLoose = true;
-                    }
-                    else if (columns.get(j).get(i) == Cell.player2 && columns.get(j+1).get(i+1) == Cell.player2 && columns.get(j+2).get(i+2) == Cell.player2 && columns.get(j+3).get(i+3) == Cell.player2){ // diagonale droite
-                        System.out.println("Player O Win ! ");
-                        WinOrLoose = true;
-                    }
-                }
-                if (j >=3 && i <= 2){
-                    if (columns.get(j).get(i) == Cell.player1 && columns.get(j-1).get(i+1) == Cell.player1 && columns.get(j-2).get(i+2) == Cell.player1 && columns.get(j-3).get(i+3) == Cell.player1){ // diagonale gauche
-                        System.out.println("Player X Win ! ");
-                        WinOrLoose = true;
-                    }
-                    else if (columns.get(j).get(i) == Cell.player2 && columns.get(j-1).get(i+1) == Cell.player2 && columns.get(j-2).get(i+2) == Cell.player2 && columns.get(j-3).get(i+3) == Cell.player2){ // diagonale gauche
-                        System.out.println("Player O Win ! ");
-                        WinOrLoose = true;
-                    }
+                if (alignpieces == 3){
+                    System.out.println("GG, the player who used the X won !");
+                    return true;
                 }
             }
+            catch(IndexOutOfBoundsException e){
+                return false;
+            }
+            // columns.get(colonne).get((columns.get(colonne).size())-1);  // Récupérer le dernier pions jouer
+        } else {
+            try{
+                for (int i = 2; i < 5; i++){
+                    if(columns.get(colonne).get((columns.get(colonne).size())-i) == columns.get(colonne).get((columns.get(colonne).size())-1)){
+                        alignpieces++;
+                    } else {
+                        break;
+                    }
+                }
+                if (alignpieces == 3){
+                    System.out.println("GG, the player who used the O won !");
+                    return true;
+                }
+            }
+            catch(IndexOutOfBoundsException e){
+                return false;
+            }
         }
+
+        return false;
     }
-    return WinOrLoose;
+    
 }

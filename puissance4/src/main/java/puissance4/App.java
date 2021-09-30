@@ -21,10 +21,12 @@ public class App {
             player = true;
             grid.AddPlayerList(player, choosePlayer1);
             grid.PrintGrid();
+            grid.verifWinVertical(player, choosePlayer1);
             this.choosePlayer2 = chooseColumn("O");
             player = false;
             grid.AddPlayerList(player, choosePlayer2);
             grid.PrintGrid();
+            grid.verifWinVertical(player, choosePlayer2);
         }while(!grid.WinOrLoose);
         
     }
