@@ -3,6 +3,8 @@ package puissance4;
 
 import java.util.*;
 
+import javax.swing.plaf.synth.SynthEditorPaneUI;
+
 
 enum Cell{
     empty, player1, player2
@@ -108,5 +110,139 @@ public class Grille {
 
         return false;
     }
-    
+
+
+
+    Integer verifWinHorizontal(Boolean player, String ltr, int sign){
+        colonne = Character.getNumericValue(ltr.charAt(0)) - 10;
+        int alignpieces = 0;
+        int line = columns.get(colonne).size() - 1;
+        if (player){
+            try{
+                for (int x = 1; x < 4; x++){
+                    if (columns.get(colonne + (sign*x)).get(line) == columns.get(colonne).get(line)){
+                        alignpieces++;
+                    }
+                }
+            }
+            catch(IndexOutOfBoundsException e){
+                return 0;
+            }
+        }
+        return alignpieces;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // Boolean verifWinDiagonalRight(Boolean player, String ltr){
+    //     colonne = Character.getNumericValue(ltr.charAt(0)) - 10;
+    //     int alignpieces = 0;
+    //     int line = columns.get(colonne).size() -1;
+    //     int x = 0;
+    //     int y = 0;
+    //     if (player){
+    //         for (int i = 0; i < 4; i++){
+    //             try{
+    //                 x++;
+    //                 y++;
+    //                 if(columns.get(colonne + x).get(line + y) == columns.get(colonne).get(line)){
+    //                     alignpieces++;
+    //                 } else {
+    //                     break;
+    //                 }
+    //                 if(columns.get(colonne - x).get(line - y) == columns.get(colonne).get(line)){
+    //                     alignpieces++;
+
+    //                 } else {
+    //                     break;
+    //                 }
+    //             }
+    //             catch(IndexOutOfBoundsException e){
+    //                 return false;
+    //             }
+    //         }
+    //         if (alignpieces == 3){
+    //             System.out.println("GG ! The player who used the X won !");
+    //             return true;
+    //         }
+    //     } else {
+    //         for (int i = 0; i < 4; i++){
+    //             try{
+    //                 x++;
+    //                 y++;
+    //                 if(columns.get(colonne + x).get(line + y) == columns.get(colonne).get(line)){
+    //                     alignpieces++;
+    //                 } else {
+    //                     break;
+    //                 }
+    //                 if(columns.get(colonne - x).get(line - y) == columns.get(colonne).get(line)){
+    //                     alignpieces++;
+
+    //                 } else {
+    //                     break;
+    //                 }
+    //             }
+    //             catch(IndexOutOfBoundsException e){
+    //                 return false;
+    //             }
+    //         }
+    //         if (alignpieces == 3){
+    //             System.out.println("GG ! The player who used the O won !");
+    //             return true;
+    //         }
+    //     }
+    //     return false;
+    // }
 }

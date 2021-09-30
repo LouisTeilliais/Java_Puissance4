@@ -14,6 +14,8 @@ public class App {
     public String choosePlayer1 = "";
     public String choosePlayer2= "";
  
+    int test1;
+    int test2;
 
     App(){
         do {
@@ -21,12 +23,22 @@ public class App {
             player = true;
             grid.AddPlayerList(player, choosePlayer1);
             grid.PrintGrid();
-            grid.verifWinVertical(player, choosePlayer1);
+            test1 = grid.verifWinHorizontal(player, choosePlayer1, 1);
+            test2 = grid.verifWinHorizontal(player, choosePlayer1, -1);
+            if (test1 + test2 >= 3){
+                System.out.println("Player X won !");
+                break;
+            }
             this.choosePlayer2 = chooseColumn("O");
             player = false;
             grid.AddPlayerList(player, choosePlayer2);
             grid.PrintGrid();
-            grid.verifWinVertical(player, choosePlayer2);
+            grid.verifWinHorizontal(player, choosePlayer2, 1);
+            grid.verifWinHorizontal(player, choosePlayer2, -1);
+            if (test1 + test2 >= 3){
+                System.out.println("Player O won !");
+                break;
+            }
         }while(!grid.WinOrLoose);
         
     }
