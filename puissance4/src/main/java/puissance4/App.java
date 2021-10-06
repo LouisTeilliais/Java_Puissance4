@@ -5,13 +5,13 @@ import java.io.*;
 public class App {
     public static void main( String[] args ){
         int input = 0; 
-        
+        Communicator comm = new Communicator();
         do {
             input = menu();
             switch(input){
                 case 1:
-            
-                //  create a game
+                
+                //create a game
                 break;
                 case 2:
                 // join a game
@@ -25,7 +25,7 @@ public class App {
         }while(input != 4);
         System.out.println("Goodbye!");
     }
-
+    
     Grille grid = new Grille();
 
 
@@ -110,7 +110,7 @@ public class App {
         System.out.println("What is the IP of the server ? ");
 
         try {
-            int IP = Integer.parseInt(getStringFromConsole("Enter the IP adress"));
+            int IP = Integer.parseInt(App.getStringFromConsole("Enter the IP adress"));
             return IP;
 
         }catch(IOException e){
