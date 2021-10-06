@@ -1,1 +1,4 @@
-target
+puissance4/target
+*.class
+*.jar
+puissance4/bin
