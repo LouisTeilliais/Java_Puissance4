@@ -4,7 +4,26 @@ import java.io.*;
 
 public class App {
     public static void main( String[] args ){
-        App newApp = new App();
+        int input = 0; 
+        
+        do {
+            input = menu();
+            switch(input){
+                case 1:
+            
+                //  create a game
+                break;
+                case 2:
+                // join a game
+                AskIP();
+                break;
+                case 3:
+                App newApp = new App();
+                break;
+            }
+
+        }while(input != 4);
+        System.out.println("Goodbye!");
     }
 
     Grille grid = new Grille();
@@ -13,9 +32,9 @@ public class App {
     public Boolean player = true;
     public String choosePlayer1 = "";
     public String choosePlayer2= "";
- 
 
     App(){
+        
         
         do {
             this.choosePlayer1 = chooseColumn("X");
@@ -66,17 +85,38 @@ public class App {
         return input; 
     }
 
-    void PlayerTurn(String whoPlay){
-        
-        this.choosePlayer1 = chooseColumn(whoPlay);
-        player = true;
-        grid.AddPlayerList(player, choosePlayer1);
-        grid.PrintGrid();
+    public static int menu(){
 
-        this.choosePlayer2 = chooseColumn("O");
-        player = false;
-        grid.AddPlayerList(player, choosePlayer2);
-        grid.PrintGrid();
+        System.out.println("Please choose what you want to do:");
+        System.out.println("1. Create a game ? ");
+        System.out.println("2. Join a game ? ");
+        System.out.println("3. Play in local ? ");
+        System.out.println("4. Quit ");
+
+        try {
+            int input = Integer.parseInt(getStringFromConsole("Please input your choice's number : "));
+            if (input < 1 || input > 3){
+                throw new IOException("Bad number");
+            }
+            return input;
+
+        }catch(Exception e){
+            System.out.println("Please enter a valid number:");
+            return menu();
+        }
+    }
+
+    public static int AskIP(){
+        System.out.println("What is the IP of the server ? ");
+
+        try {
+            int IP = Integer.parseInt(getStringFromConsole("Enter the IP adress"));
+            return IP;
+
+        }catch(IOException e){
+            System.err.println("Enter a valid IP");
+            return AskIP();
+        }
     }
 }
 
