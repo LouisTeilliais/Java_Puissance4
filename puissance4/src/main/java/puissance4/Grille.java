@@ -13,6 +13,7 @@ enum Cell{
 public class Grille {
 
     List<List<Cell>> columns = new ArrayList<>();
+    int colonne;
 
     Grille(){
         CreateList();
@@ -43,7 +44,7 @@ public class Grille {
 
     }
 
-    int colonne;
+    
 
     public void AddPlayerList(Boolean player, String ltr){
         colonne = Character.getNumericValue(ltr.charAt(0)) - 10;
@@ -113,11 +114,8 @@ public class Grille {
                 return false;
             }
         }
-
         return false;
     }
-
-
 
     Integer verifWinHorizontal(Boolean player, String ltr, int sign){
         colonne = Character.getNumericValue(ltr.charAt(0)) - 10;
