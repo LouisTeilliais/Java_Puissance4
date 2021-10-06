@@ -50,10 +50,21 @@ public class Grille {
     public void AddPlayerList(Boolean player, String ltr){
         colonne = Character.getNumericValue(ltr.charAt(0)) - 10;
         if (player){
-            columns.get(colonne).add(Cell.player1);
+            if(columns.get(colonne).size() < 6){
+                columns.get(colonne).add(Cell.player1);
+            }else{
+                System.out.println("Please input an empty column");
+                AddPlayerList(player, App.chooseColumn("X"));
+            }
+            
         }
         else {
-            columns.get(colonne).add(Cell.player2);
+            if(columns.get(colonne).size() < 6){
+                columns.get(colonne).add(Cell.player2);
+            }else{
+                System.out.println("Please input an empty column");
+                AddPlayerList(player, App.chooseColumn("O"));
+            }
         }
     }
 
@@ -88,7 +99,6 @@ public class Grille {
             catch(IndexOutOfBoundsException e){
                 return false;
             }
-            // columns.get(colonne).get((columns.get(colonne).size())-1);  // Récupérer le dernier pions jouer
         } else {
             try{
                 for (int i = 2; i < 5; i++){
@@ -126,123 +136,84 @@ public class Grille {
                 }
             }
             catch(IndexOutOfBoundsException e){
-                return 0;
+                return alignpieces;
+            }
+        } else {
+            try{
+                for (int x = 1; x < 4; x++){
+                    if (columns.get(colonne + (sign*x)).get(line) == columns.get(colonne).get(line)){
+                        alignpieces++;
+                    }
+                }
+            }
+            catch(IndexOutOfBoundsException e){
+                return alignpieces;
+            }
+        }
+        
+        return alignpieces;
+    }
+
+
+    Integer verifWinDiagonalRight(Boolean player, String ltr, int sign){
+        colonne = Character.getNumericValue(ltr.charAt(0)) - 10;
+        int alignpieces = 0;
+        int line = columns.get(colonne).size() - 1;
+        if(player){
+            try{
+                for(int xy = 1; xy < 4; xy++){
+                    if (columns.get(colonne + (sign*xy)).get(line + (sign*xy)) == columns.get(colonne).get(line)){
+                        alignpieces++;
+                    }
+                }
+            }
+            catch(IndexOutOfBoundsException e){
+                return alignpieces;
+            }
+        } else {
+            try{
+                for(int xy = 1; xy < 4; xy++){
+                    if (columns.get(colonne + (sign*xy)).get(line + (sign*xy)) == columns.get(colonne).get(line)){
+                        alignpieces++;
+                    }
+                }
+            }
+            catch(IndexOutOfBoundsException e){
+                return alignpieces;
+            }
+        }
+        return alignpieces;
+    }
+
+    Integer verifWinDiagonalLeft(Boolean player, String ltr, int sign){
+        colonne = Character.getNumericValue(ltr.charAt(0)) - 10;
+        int alignpieces = 0;
+        int line = columns.get(colonne).size() - 1;
+        if(player){
+            try{
+                for(int xy = 1; xy < 4; xy++){
+                    if (columns.get(colonne + (sign*xy*-1)).get(line + (sign*xy)) == columns.get(colonne).get(line)){
+                        alignpieces++;
+                    }
+                }
+            }
+            catch(IndexOutOfBoundsException e){
+                return alignpieces;
+            }
+        } else {
+            try{
+                for(int xy = 1; xy < 4; xy++){
+                    if (columns.get(colonne + (sign*xy*-1)).get(line + (sign*xy)) == columns.get(colonne).get(line)){
+                        alignpieces++;
+                    }
+                }
+            }
+            catch(IndexOutOfBoundsException e){
+                return alignpieces;
             }
         }
         return alignpieces;
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // Boolean verifWinDiagonalRight(Boolean player, String ltr){
-    //     colonne = Character.getNumericValue(ltr.charAt(0)) - 10;
-    //     int alignpieces = 0;
-    //     int line = columns.get(colonne).size() -1;
-    //     int x = 0;
-    //     int y = 0;
-    //     if (player){
-    //         for (int i = 0; i < 4; i++){
-    //             try{
-    //                 x++;
-    //                 y++;
-    //                 if(columns.get(colonne + x).get(line + y) == columns.get(colonne).get(line)){
-    //                     alignpieces++;
-    //                 } else {
-    //                     break;
-    //                 }
-    //                 if(columns.get(colonne - x).get(line - y) == columns.get(colonne).get(line)){
-    //                     alignpieces++;
-
-    //                 } else {
-    //                     break;
-    //                 }
-    //             }
-    //             catch(IndexOutOfBoundsException e){
-    //                 return false;
-    //             }
-    //         }
-    //         if (alignpieces == 3){
-    //             System.out.println("GG ! The player who used the X won !");
-    //             return true;
-    //         }
-    //     } else {
-    //         for (int i = 0; i < 4; i++){
-    //             try{
-    //                 x++;
-    //                 y++;
-    //                 if(columns.get(colonne + x).get(line + y) == columns.get(colonne).get(line)){
-    //                     alignpieces++;
-    //                 } else {
-    //                     break;
-    //                 }
-    //                 if(columns.get(colonne - x).get(line - y) == columns.get(colonne).get(line)){
-    //                     alignpieces++;
-
-    //                 } else {
-    //                     break;
-    //                 }
-    //             }
-    //             catch(IndexOutOfBoundsException e){
-    //                 return false;
-    //             }
-    //         }
-    //         if (alignpieces == 3){
-    //             System.out.println("GG ! The player who used the O won !");
-    //             return true;
-    //         }
-    //     }
-    //     return false;
-    // }
 }
