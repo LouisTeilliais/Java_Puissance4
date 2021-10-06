@@ -10,7 +10,6 @@ public class App {
 
     Grille grid = new Grille();
 
-
     public Boolean player = true;
     public String choosePlayer1 = "";
     public String choosePlayer2= "";
@@ -40,9 +39,7 @@ public class App {
     static String chooseColumn(String player){
         try {
             String choose = getStringFromConsole("Player " + player +  ", What column do you choose ?");
-            if ( choose.charAt(0) >= 'a' && choose.charAt(0) <= 'h'){
-                // System.out.println(choose);
-                
+            if ( choose.charAt(0) >= 'a' && choose.charAt(0) <= 'h'){               
             }else {
                 throw new IOException("Bad colummn");
             } 
@@ -82,8 +79,6 @@ public class App {
             // Check si win par l'horizontal
             firstSide = grid.verifWinHorizontal(player, choosePlayer1, 1);
             secondSide = grid.verifWinHorizontal(player, choosePlayer1, -1);
-            System.out.println(firstSide);
-            System.out.println(secondSide);
             if (firstSide + secondSide >= 3){
                 System.out.println("GG ! The player who played with the X won!");
                 return true;
@@ -133,5 +128,3 @@ public class App {
     }
     
 }
-
-

@@ -19,8 +19,6 @@ public class Grille {
         PrintGrid();
     }
 
-    public Boolean WinOrLoose = false;
-
     public void PrintGrid(){
         for (int i=5; i>=0; i--){
             System.out.print("#");
@@ -56,7 +54,6 @@ public class Grille {
                 System.out.println("Please input an empty column");
                 AddPlayerList(player, App.chooseColumn("X"));
             }
-            
         }
         else {
             if(columns.get(colonne).size() < 6){
@@ -69,7 +66,6 @@ public class Grille {
     }
 
     public void CreateList(){
-
         columns = new ArrayList<>();
         for(int i=0; i<8; i++){ //faire une variable pour faire plaiz au J.
             List<Cell> column = new ArrayList<Cell>();
