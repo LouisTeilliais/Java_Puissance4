@@ -1,26 +1,41 @@
 package puissance4;
 
 import java.io.*;
+import java.lang.ref.Cleaner;
 
 public class App {
     public static void main( String[] args ){
         int input = 0; 
         Communicator comm = new Communicator();
+        String message = "";
         do {
             input = menu();
             switch(input){
                 case 1:
-                
+                Communicator.accept();
                 //create a game
                 break;
-                case 2:
+                case 2: 
+                try {
+                    if (args.length > 0){
+                        Communicator.connect(args[0]);
+                   
+                        message = Communicator.sendMessage();
+                    }
+                
+                }catch(ArrayIndexOutOfBoundsException e){
+                    System.err.print("Please enter anything" +e.getMessage());
+                }
+                
                 // join a game
-                AskIP();
+                // AskIP();
                 break;
+               
                 case 3:
                 App newApp = new App();
                 break;
             }
+            
 
         }while(input != 4);
         System.out.println("Goodbye!");

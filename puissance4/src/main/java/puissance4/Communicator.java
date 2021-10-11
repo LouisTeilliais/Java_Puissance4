@@ -11,31 +11,38 @@ import java.nio.channels.SocketChannel;
 
 public class Communicator {
  
-    SocketChannel socket = null; 
-    final int BUFFER_LENGTH = 256;
+    static SocketChannel socket = null; 
+    final static int BUFFER_LENGTH = 256;
     static Communicator comm = null; 
     
-    public static void main(String[] args) throws IOException {
+    // public static void main(String[] args) throws IOException {
         
-        Communicator comm = new Communicator();
-        String message = "";
+    //     Communicator comm = new Communicator();
+    //     String message = "";
 
-        if (args.length > 0){
+    //     if (args.length > 0){
             
-            comm.connect(args[0]);
-            message = sendMessage();
-        } else {
-            comm.accept();
-        }
-        // while(){
+    //         comm.connect(args[0]);
+    //         message = sendMessage();
+    //     } else {
+    //         comm.accept();
+    //     }
 
-        // }
+    //     do{
+    //         message = comm.read();
+
+    //         System.out.print(">>");
+    //         System.out.print(message);
+    //         System.out.print("\n");
+    //         message = sendMessage();
+
+    //     }while(!message.equals("Quit"));
         
 
-        System.out.println("Game is finished");
-    }
+    //     System.out.println("Game is finished");
+    // }
 
-    public void connect(String address){
+    public static void connect(String address){
 
         try {
             System.out.println("Connecting to host...");
@@ -49,7 +56,7 @@ public class Communicator {
         
     }
 
-    public void accept(){
+    public static void accept(){
 
         try {
 
@@ -65,7 +72,7 @@ public class Communicator {
     }
 
 
-    public void write(String message) throws IOException{
+    public static void write(String message) throws IOException{
 
         try {
             ByteBuffer buffer = ByteBuffer.wrap(message.getBytes("UTF-8"));
@@ -78,7 +85,7 @@ public class Communicator {
         }
     }
 
-    public String read() {
+    public static String read() {
         
         ByteBuffer buffer = ByteBuffer.allocate(BUFFER_LENGTH);
        
@@ -115,7 +122,7 @@ public class Communicator {
         
         try{
             String message = getMessage();
-            comm.write(message);
+            Communicator.write(message);
             return message;
         }
         catch(IOException e){
@@ -125,7 +132,7 @@ public class Communicator {
     }
 
 
-    public void close(){
+    public static void close(){
         try{
             socket.close();
         }
