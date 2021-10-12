@@ -3,6 +3,8 @@ package puissance4;
 
 import java.util.*;
 
+import javax.swing.plaf.synth.SynthEditorPaneUI;
+
 
 enum Cell{
     empty, player1, player2
@@ -17,8 +19,6 @@ public class Grille {
         CreateList();
         PrintGrid();
     }
-
-    public Boolean WinOrLoose = false;
 
     public void PrintGrid(){
         for (int i=5; i>=0; i--){
@@ -49,15 +49,24 @@ public class Grille {
     public void AddPlayerList(Boolean player, String ltr){
         colonne = Character.getNumericValue(ltr.charAt(0)) - 10;
         if (player){
-            columns.get(colonne).add(Cell.player1);
+            if(columns.get(colonne).size() < 6){
+                columns.get(colonne).add(Cell.player1);
+            }else{
+                System.out.println("Please input an empty column");
+                AddPlayerList(player, App.chooseColumn("X"));
+            }
         }
         else {
-            columns.get(colonne).add(Cell.player2);
+            if(columns.get(colonne).size() < 6){
+                columns.get(colonne).add(Cell.player2);
+            }else{
+                System.out.println("Please input an empty column");
+                AddPlayerList(player, App.chooseColumn("O"));
+            }
         }
     }
 
     public void CreateList(){
-
         columns = new ArrayList<>();
         for(int i=0; i<8; i++){ //faire une variable pour faire plaiz au J.
             List<Cell> column = new ArrayList<Cell>();
@@ -107,45 +116,98 @@ public class Grille {
         }
         return false;
     }
-    
-    Boolean verifWinHorizontal(Boolean player, String ltr){
+
+    Integer verifWinHorizontal(Boolean player, String ltr, int sign){
         colonne = Character.getNumericValue(ltr.charAt(0)) - 10;
         int alignpieces = 0;
         int line = columns.get(colonne).size() - 1;
-        
         if (player){
             try{
-                System.out.println("TEST" + " "+  colonne + " " +line);
-                for (int i = 1; i <= 3; i++){
-                    if (columns.get(colonne).get(line) == columns.get(colonne + i).get(line)){
+                for (int x = 1; x < 4; x++){
+                    if (columns.get(colonne + (sign*x)).get(line) == columns.get(colonne).get(line)){
                         alignpieces++;
-                        System.out.println("test");
                     }
-                }
-                if (alignpieces == 3){
-                    System.out.println("GG, the player who used the X won !");
-                    return true;
                 }
             }
             catch(IndexOutOfBoundsException e){
-                return false;
+                return alignpieces;
             }
+        } else {
             try{
-                for (int j = 3 ; j >= 0; j-- ){
-                    if (columns.get(colonne).get(line) == columns.get(colonne - j).get(line)){
+                for (int x = 1; x < 4; x++){
+                    if (columns.get(colonne + (sign*x)).get(line) == columns.get(colonne).get(line)){
                         alignpieces++;
-                        System.out.println("test2");
                     }
-                    if (alignpieces == 3){
-                        System.out.println("GG, the player who used the X won !");
-                        return true;
-                    }   
                 }
-            }catch(IndexOutOfBoundsException e){
-                return false;
             }
-            
-        } 
-        return false;
+            catch(IndexOutOfBoundsException e){
+                return alignpieces;
+            }
+        }
+        
+        return alignpieces;
     }
+
+
+    Integer verifWinDiagonalRight(Boolean player, String ltr, int sign){
+        colonne = Character.getNumericValue(ltr.charAt(0)) - 10;
+        int alignpieces = 0;
+        int line = columns.get(colonne).size() - 1;
+        if(player){
+            try{
+                for(int xy = 1; xy < 4; xy++){
+                    if (columns.get(colonne + (sign*xy)).get(line + (sign*xy)) == columns.get(colonne).get(line)){
+                        alignpieces++;
+                    }
+                }
+            }
+            catch(IndexOutOfBoundsException e){
+                return alignpieces;
+            }
+        } else {
+            try{
+                for(int xy = 1; xy < 4; xy++){
+                    if (columns.get(colonne + (sign*xy)).get(line + (sign*xy)) == columns.get(colonne).get(line)){
+                        alignpieces++;
+                    }
+                }
+            }
+            catch(IndexOutOfBoundsException e){
+                return alignpieces;
+            }
+        }
+        return alignpieces;
+    }
+
+    Integer verifWinDiagonalLeft(Boolean player, String ltr, int sign){
+        colonne = Character.getNumericValue(ltr.charAt(0)) - 10;
+        int alignpieces = 0;
+        int line = columns.get(colonne).size() - 1;
+        if(player){
+            try{
+                for(int xy = 1; xy < 4; xy++){
+                    if (columns.get(colonne + (sign*xy*-1)).get(line + (sign*xy)) == columns.get(colonne).get(line)){
+                        alignpieces++;
+                    }
+                }
+            }
+            catch(IndexOutOfBoundsException e){
+                return alignpieces;
+            }
+        } else {
+            try{
+                for(int xy = 1; xy < 4; xy++){
+                    if (columns.get(colonne + (sign*xy*-1)).get(line + (sign*xy)) == columns.get(colonne).get(line)){
+                        alignpieces++;
+                    }
+                }
+            }
+            catch(IndexOutOfBoundsException e){
+                return alignpieces;
+            }
+        }
+        return alignpieces;
+    }
+
+
 }

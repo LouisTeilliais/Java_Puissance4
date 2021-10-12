@@ -1,40 +1,51 @@
 package puissance4;
 
 import java.io.*;
-import java.lang.ref.Cleaner;
+// import java.lang.ref.Cleaner;
+// import java.lang.Thread.State;
 
 public class App {
     public static void main( String[] args ){
         int input = 0; 
         Communicator comm = new Communicator();
         String message = "";
+       
         do {
+        
             input = menu();
             switch(input){
                 case 1:
-                Communicator.accept();
                 //create a game
+                Communicator.accept();
+
                 break;
-                case 2: 
+                
+                case 2:      
+                // join a game
                 try {
-                    if (args.length > 0){
-                        Communicator.connect(args[0]);
-                   
-                        message = Communicator.sendMessage();
-                    }
+                    
+                    Communicator.connect(AskIP());
+                    message = Communicator.sendMessage();
                 
                 }catch(ArrayIndexOutOfBoundsException e){
                     System.err.print("Please enter anything" +e.getMessage());
                 }
-                
-                // join a game
-                // AskIP();
+           
                 break;
                
                 case 3:
                 App newApp = new App();
                 break;
             }
+            do{
+                message = Communicator.read();
+    
+                System.out.print(">>");
+                System.out.print(message);
+                System.out.print("\n");
+                message = Communicator.sendMessage();
+        
+            }while(!message.equals("Quit"));
             
 
         }while(input != 4);
@@ -43,35 +54,36 @@ public class App {
     
     Grille grid = new Grille();
 
-
     public Boolean player = true;
     public String choosePlayer1 = "";
     public String choosePlayer2= "";
-
+ 
     App(){
-        
-        
-        do {
+        for(int i = 0; i <= 46; i += 2){
             this.choosePlayer1 = chooseColumn("X");
             player = true;
             grid.AddPlayerList(player, choosePlayer1);
             grid.PrintGrid();
-            grid.verifWinHorizontal(player, choosePlayer1);
+            if(CheckWin(player)){
+                break;
+            }
             this.choosePlayer2 = chooseColumn("O");
             player = false;
             grid.AddPlayerList(player, choosePlayer2);
             grid.PrintGrid();
-            grid.verifWinHorizontal(player, choosePlayer2);
-        }while(!grid.WinOrLoose);
-    
+            if(CheckWin(player)){
+                break;
+            }
+            if(i == 46){
+                System.out.println("There is no winner ... It was a boring game zzz");
+            }
+        }
     }
 
     static String chooseColumn(String player){
         try {
             String choose = getStringFromConsole("Player " + player +  ", What column do you choose ?");
-            if ( choose.charAt(0) >= 'a' && choose.charAt(0) <= 'h'){
-                // System.out.println(choose);
-                
+            if ( choose.charAt(0) >= 'a' && choose.charAt(0) <= 'h'){               
             }else {
                 throw new IOException("Bad colummn");
             } 
@@ -100,6 +112,65 @@ public class App {
         return input; 
     }
 
+    Boolean CheckWin(Boolean player){
+        int firstSide = 0;
+        int secondSide = 0;
+        if (player){
+            // Check win par la vertical 
+            if (grid.verifWinVertical(player, choosePlayer1)){
+                return true;
+            }
+            // Check si win par l'horizontal
+            firstSide = grid.verifWinHorizontal(player, choosePlayer1, 1);
+            secondSide = grid.verifWinHorizontal(player, choosePlayer1, -1);
+            if (firstSide + secondSide >= 3){
+                System.out.println("GG ! The player who played with the X won!");
+                return true;
+            }
+            // Check si win par la diagonale droite
+            firstSide = grid.verifWinDiagonalRight(player, choosePlayer1, 1);
+            secondSide = grid.verifWinDiagonalRight(player, choosePlayer1, -1);
+            if (firstSide + secondSide >= 3){
+                System.out.println("GG ! The player who played with the X won!");
+                return true;
+            }
+            // Check si win par la diagonale gauche
+            firstSide = grid.verifWinDiagonalLeft(player, choosePlayer1, 1);
+            secondSide = grid.verifWinDiagonalLeft(player, choosePlayer1, -1);
+            if (firstSide + secondSide >= 3){
+                System.out.println("GG ! The player who played with the X won!");
+                return true;
+            }
+        } else {
+            // Check win par la vertical 
+            if (grid.verifWinVertical(player, choosePlayer2)){
+                return true;
+            }
+            // Check si win par l'horizontal
+            firstSide = grid.verifWinHorizontal(player, choosePlayer2, 1);
+            secondSide = grid.verifWinHorizontal(player, choosePlayer2, -1);
+            if (firstSide + secondSide >= 3){
+                System.out.println("GG ! The player who played with the O won!");
+                return true;
+            }
+            // Check si win par la diagonale droite
+            firstSide = grid.verifWinDiagonalRight(player, choosePlayer2, 1);
+            secondSide = grid.verifWinDiagonalRight(player, choosePlayer2, -1);
+            if (firstSide + secondSide >= 3){
+                System.out.println("GG ! The player who played with the O won!");
+                return true;
+            }
+            // Check si win par la diagonale gauche
+            firstSide = grid.verifWinDiagonalLeft(player, choosePlayer2, 1);
+            secondSide = grid.verifWinDiagonalLeft(player, choosePlayer2, -1);
+            if (firstSide + secondSide >= 3){
+                System.out.println("GG ! The player who played with the O won!");
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static int menu(){
 
         System.out.println("Please choose what you want to do:");
@@ -121,11 +192,11 @@ public class App {
         }
     }
 
-    public static int AskIP(){
+    public static String AskIP(){
         System.out.println("What is the IP of the server ? ");
 
         try {
-            int IP = Integer.parseInt(App.getStringFromConsole("Enter the IP adress"));
+            String IP = App.getStringFromConsole("Enter the IP adress");
             return IP;
 
         }catch(IOException e){
