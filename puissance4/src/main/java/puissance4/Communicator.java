@@ -15,33 +15,6 @@ public class Communicator {
     final static int BUFFER_LENGTH = 256;
     static Communicator comm = null; 
     
-    // public static void main(String[] args) throws IOException {
-        
-    //     Communicator comm = new Communicator();
-    //     String message = "";
-
-    //     if (args.length > 0){
-            
-    //         comm.connect(args[0]);
-    //         message = sendMessage();
-    //     } else {
-    //         comm.accept();
-    //     }
-
-    //     do{
-    //         message = comm.read();
-
-    //         System.out.print(">>");
-    //         System.out.print(message);
-    //         System.out.print("\n");
-    //         message = sendMessage();
-
-    //     }while(!message.equals("Quit"));
-        
-
-    //     System.out.println("Game is finished");
-    // }
-
     public static void connect(String address){
 
         try {

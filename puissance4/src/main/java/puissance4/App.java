@@ -10,45 +10,44 @@ public class App {
         Communicator comm = new Communicator();
         String message = "";
        
-        do {
-        
-            input = menu();
-            switch(input){
-                case 1:
-                //create a game
-                Communicator.accept();
-
-                break;
-                
-                case 2:      
-                // join a game
-                try {
-                    
-                    Communicator.connect(AskIP());
-                    message = Communicator.sendMessage();
-                
-                }catch(ArrayIndexOutOfBoundsException e){
-                    System.err.print("Please enter anything" +e.getMessage());
-                }
-           
-                break;
-               
-                case 3:
-                App newApp = new App();
-                break;
-            }
-            do{
-                message = Communicator.read();
-    
-                System.out.print(">>");
-                System.out.print(message);
-                System.out.print("\n");
-                message = Communicator.sendMessage();
-        
-            }while(!message.equals("Quit"));
+        input = menu();
+        switch(input){
+            case 1:
+            //create a game
+            Communicator.accept();
+            // App Serv = new App();
+            // message = Communicator.read();
+            break;
             
+            case 2:      
+            // join a game
+            try {
+                Communicator.connect(AskIP());
+                // App Client = new App();
+                message = Communicator.sendMessage();
+            
+            }catch(ArrayIndexOutOfBoundsException e){
+                System.err.print("Please enter anything" +e.getMessage());
+            }
+            
+            break;
+            
+            case 3:
+            App newApp = new App();
+            break;
+            case 4: 
+            break;
+        }
+        do{
+            message = Communicator.read();
 
-        }while(input != 4);
+            System.out.print(">>");
+            System.out.print(message);
+            System.out.print("\n");
+            message = Communicator.sendMessage();
+    
+        }while(!message.equals("Quit"));
+        
         System.out.println("Goodbye!");
     }
     
@@ -181,7 +180,7 @@ public class App {
 
         try {
             int input = Integer.parseInt(getStringFromConsole("Please input your choice's number : "));
-            if (input < 1 || input > 3){
+            if (input < 1 || input > 4){
                 throw new IOException("Bad number");
             }
             return input;
