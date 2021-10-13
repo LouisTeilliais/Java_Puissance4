@@ -1,8 +1,6 @@
 package puissance4;
 
 import java.io.*;
-import java.lang.Thread.State;
-
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -13,34 +11,60 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+
 public class App extends Application {
     private Stage mainWindow = null;
     private Stage confirmationWindow = null;
     private Scene mainScene = null;
     public static void main( String[] args ){
-        launch(args);
         int input = 0; 
+        launch(args);
+        Communicator comm = new Communicator();
+        String message = "";
+       
         input = menu();
         switch(input){
             case 1:
-            //  create a game
+            //create a game
+            Communicator.accept();
+            // App Serv = new App();
+            // message = Communicator.read();
             break;
-
-            case 2:
+            
+            case 2:      
             // join a game
-            AskIP();
+            try {
+                Communicator.connect(AskIP());
+                // App Client = new App();
+                message = Communicator.sendMessage();
+            
+            }catch(ArrayIndexOutOfBoundsException e){
+                System.err.print("Please enter anything" +e.getMessage());
+            }
+            
             break;
             
             case 3:
             App newApp = new App();
             break;
-            
-            case 4:
+
+            case 4: 
             break;
         }
-        System.out.println("Goodbye!");
-    }
+        do{
+            message = Communicator.read();
 
+            System.out.print(">>");
+            System.out.print(message);
+            System.out.print("\n");
+            message = Communicator.sendMessage();
+    
+        }while(!message.equals("Quit"));
+        
+        System.out.println("Goodbye!");
+
+    }
+    
     Grille grid = new Grille();
 
     public Boolean player = true;
