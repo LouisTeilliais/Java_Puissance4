@@ -3,37 +3,12 @@ package puissance4;
 import java.io.*;
 import java.lang.Thread.State;
 
-import javafx.application.Application;
 
-public class App extends Application {
-    private Stage mainWindow = null;
+public class App {
+
     public static void main( String[] args ){
-        int input = 0; 
-        input = menu();
-        switch(input){
-            case 1:
-            //  create a game
-            break;
-
-            case 2:
-            // join a game
-            AskIP();
-            break;
-            
-            case 3:
-            App newApp = new App();
-            break;
-            
-            case 4:
-            break;
-        }
-        System.out.println("Goodbye!");
+        App newApp = new App();
     }
-
-    public void start(Stage mainWindow) throws Exception{
-        this.mainWindow = mainWindow;
-    }
-
 
     Grille grid = new Grille();
 
@@ -152,40 +127,6 @@ public class App extends Application {
             }
         }
         return false;
-    }
-
-    public static int menu(){
-
-        System.out.println("Please choose what you want to do:");
-        System.out.println("1. Create a game ? ");
-        System.out.println("2. Join a game ? ");
-        System.out.println("3. Play in local ? ");
-        System.out.println("4. Quit ");
-
-        try {
-            int input = Integer.parseInt(getStringFromConsole("Please input your choice's number : "));
-            if (input < 1 || input > 4){
-                throw new IOException("Bad number");
-            }
-            return input;
-
-        }catch(Exception e){
-            System.out.println("Please enter a valid number:");
-            return menu();
-        }
-    }
-
-    public static int AskIP(){
-        System.out.println("What is the IP of the server ? ");
-
-        try {
-            int IP = Integer.parseInt(getStringFromConsole("Enter the IP adress"));
-            return IP;
-
-        }catch(IOException e){
-            System.err.println("Enter a valid IP");
-            return AskIP();
-        }
     }
 }
 
