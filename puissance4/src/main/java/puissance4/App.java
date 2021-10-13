@@ -1,14 +1,24 @@
 package puissance4;
 
 import java.io.*;
-// import java.lang.ref.Cleaner;
-// import java.lang.Thread.State;
+import javafx.application.Application;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 
-public class App {
-  
+public class App extends Application {
+    private Stage mainWindow = null;
+    private Stage confirmationWindow = null;
+    private Scene mainScene = null;
     public static void main( String[] args ){
         int input = 0; 
+        launch(args);
         Communicator comm = new Communicator();
         String message = "";
        
@@ -37,6 +47,7 @@ public class App {
             case 3:
             App newApp = new App();
             break;
+
             case 4: 
             break;
         }
@@ -59,6 +70,41 @@ public class App {
     public Boolean player = true;
     public String choosePlayer1 = "";
     public String choosePlayer2= "";
+
+    private Scene test(){
+        Label l = new Label("Bonsoir non.");
+        Button game = new Button("Game ?");
+        Button quit = new Button("Quit ?");
+        HBox forButton = new HBox();
+        forButton.getChildren().addAll(game, quit);
+        VBox box1 = new VBox();
+        box1.getChildren().addAll(l, forButton);
+        box1.setAlignment(Pos.CENTER);
+        return new Scene(box1, 200, 100);
+    }
+    @Override
+    public void start(Stage mainWindow) throws Exception {
+        this.mainWindow = mainWindow;
+        Button welcome = new Button("Start ?");
+        Label l1 = new Label("Hey ! Welcome on this game !");
+        Scene confirmationScene = test();
+        this.confirmationWindow = new Stage();
+        confirmationWindow.setTitle("test");
+        confirmationWindow.setScene(confirmationScene);
+        confirmationWindow.initModality(Modality.APPLICATION_MODAL);
+        welcome.setOnMouseClicked(e -> {
+            confirmationWindow.show();
+        });
+        VBox box1 = new VBox();
+        box1.getChildren().addAll(l1, welcome);
+        box1.setAlignment(Pos.CENTER);
+        box1.setSpacing(20);
+        Scene mainScene = new Scene(box1, 300, 200);
+        this.mainScene = mainScene;
+        mainWindow.setTitle("My first window!");
+        mainWindow.setScene(mainScene);
+        mainWindow.show();
+    }
  
     App(){
         for(int i = 0; i <= 46; i += 2){
@@ -194,11 +240,11 @@ public class App {
         }
     }
 
-    public static String AskIP(){
+    public static int AskIP(){
         System.out.println("What is the IP of the server ? ");
 
         try {
-            String IP = App.getStringFromConsole("Enter the IP adress");
+            int IP = Integer.parseInt(getStringFromConsole("Enter the IP adress"));
             return IP;
 
         }catch(IOException e){
@@ -207,5 +253,3 @@ public class App {
         }
     }
 }
-
-
