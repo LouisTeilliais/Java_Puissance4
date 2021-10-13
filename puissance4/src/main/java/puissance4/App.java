@@ -1,15 +1,59 @@
 package puissance4;
 
 import java.io.*;
-import java.lang.Thread.State;
+// import java.lang.ref.Cleaner;
+// import java.lang.Thread.State;
 
 
 public class App {
-
+  
     public static void main( String[] args ){
-        App newApp = new App();
-    }
+        int input = 0; 
+        Communicator comm = new Communicator();
+        String message = "";
+       
+        input = menu();
+        switch(input){
+            case 1:
+            //create a game
+            Communicator.accept();
+            // App Serv = new App();
+            // message = Communicator.read();
+            break;
+            
+            case 2:      
+            // join a game
+            try {
+                Communicator.connect(AskIP());
+                // App Client = new App();
+                message = Communicator.sendMessage();
+            
+            }catch(ArrayIndexOutOfBoundsException e){
+                System.err.print("Please enter anything" +e.getMessage());
+            }
+            
+            break;
+            
+            case 3:
+            App newApp = new App();
+            break;
+            case 4: 
+            break;
+        }
+        do{
+            message = Communicator.read();
 
+            System.out.print(">>");
+            System.out.print(message);
+            System.out.print("\n");
+            message = Communicator.sendMessage();
+    
+        }while(!message.equals("Quit"));
+        
+        System.out.println("Goodbye!");
+
+    }
+    
     Grille grid = new Grille();
 
     public Boolean player = true;
@@ -127,6 +171,40 @@ public class App {
             }
         }
         return false;
+    }
+
+    public static int menu(){
+
+        System.out.println("Please choose what you want to do:");
+        System.out.println("1. Create a game ? ");
+        System.out.println("2. Join a game ? ");
+        System.out.println("3. Play in local ? ");
+        System.out.println("4. Quit ");
+
+        try {
+            int input = Integer.parseInt(getStringFromConsole("Please input your choice's number : "));
+            if (input < 1 || input > 4){
+                throw new IOException("Bad number");
+            }
+            return input;
+
+        }catch(Exception e){
+            System.out.println("Please enter a valid number:");
+            return menu();
+        }
+    }
+
+    public static String AskIP(){
+        System.out.println("What is the IP of the server ? ");
+
+        try {
+            String IP = App.getStringFromConsole("Enter the IP adress");
+            return IP;
+
+        }catch(IOException e){
+            System.err.println("Enter a valid IP");
+            return AskIP();
+        }
     }
 }
 
