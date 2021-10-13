@@ -3,29 +3,37 @@ package puissance4;
 import java.io.*;
 import java.lang.Thread.State;
 
-public class App {
+import javafx.application.Application;
+
+public class App extends Application {
+    private Stage mainWindow = null;
     public static void main( String[] args ){
         int input = 0; 
-        
-        do {
-            input = menu();
-            switch(input){
-                case 1:
-            
-                //  create a game
-                break;
-                case 2:
-                // join a game
-                AskIP();
-                break;
-                case 3:
-                App newApp = new App();
-                break;
-            }
+        input = menu();
+        switch(input){
+            case 1:
+            //  create a game
+            break;
 
-        }while(input != 4);
+            case 2:
+            // join a game
+            AskIP();
+            break;
+            
+            case 3:
+            App newApp = new App();
+            break;
+            
+            case 4:
+            break;
+        }
         System.out.println("Goodbye!");
     }
+
+    public void start(Stage mainWindow) throws Exception{
+        this.mainWindow = mainWindow;
+    }
+
 
     Grille grid = new Grille();
 
@@ -145,7 +153,7 @@ public class App {
         }
         return false;
     }
-}
+
     public static int menu(){
 
         System.out.println("Please choose what you want to do:");
@@ -156,7 +164,7 @@ public class App {
 
         try {
             int input = Integer.parseInt(getStringFromConsole("Please input your choice's number : "));
-            if (input < 1 || input > 3){
+            if (input < 1 || input > 4){
                 throw new IOException("Bad number");
             }
             return input;
