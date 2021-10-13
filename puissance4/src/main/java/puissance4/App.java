@@ -4,7 +4,9 @@ import java.io.*;
 // import java.lang.ref.Cleaner;
 // import java.lang.Thread.State;
 
+
 public class App {
+  
     public static void main( String[] args ){
         int input = 0; 
         Communicator comm = new Communicator();
@@ -49,6 +51,7 @@ public class App {
         }while(!message.equals("Quit"));
         
         System.out.println("Goodbye!");
+
     }
     
     Grille grid = new Grille();
